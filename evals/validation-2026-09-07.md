@@ -6,15 +6,19 @@
 
 - 官方 `skill-creator/scripts/quick_validate.py` 校验通过。
 - 使用 YAML 解析器确认 `policy.allow_implicit_invocation` 为布尔值 `false`。
-- 源码保留在本仓库，个人入口 `/Users/justynchen/.agents/skills/fable-mode` 是指向本仓库 `fable-mode` 目录的软链接。
+- 源码保留在本仓库，本次验证的个人入口 `~/.agents/skills/fable-mode` 是指向本仓库 `fable-mode` 目录的软链接。
 - 本机 `codex-cli 0.146.0` 的 `skills/list` 以 `forceReload: true` 回读到唯一的 `fable-mode`，`scope: user`、`enabled: true`，该 skill 无加载错误。`enabled: true` 保留显式可用性。
 - 本机二进制包含 `openai.yaml` 和 `allow_implicit_invocation` 解析标识；官方文档说明此字段关闭隐式选用。但本版本的 `skills/list` 不返回策略字段，因此本次确认的是配置、解析支持线索和发现路径，没有运行自动选择的端到端对照测试。
 
-复核格式的命令：
+初次验证使用宿主内置的 `skill-creator/scripts/quick_validate.py`，具体安装路径因环境而异。为便于其他贡献者复核，仓库现提供独立的静态校验脚本；在仓库根目录按以下命令执行，不依赖维护者本机路径：
 
 ```sh
-/Users/justynchen/anaconda3/bin/python /Users/justynchen/.codex/skills/.system/skill-creator/scripts/quick_validate.py /Users/justynchen/Documents/code/fable-mode-skill/fable-mode
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements-dev.txt
+.venv/bin/python scripts/validate.py
 ```
+
+依赖、检查范围及 Windows 命令说明见[贡献指南](../CONTRIBUTING.md)。上述命令是后续复核入口，不表示初次验证执行过仓库脚本，也不会重跑下述行为试用。
 
 ## 独立前向试用
 

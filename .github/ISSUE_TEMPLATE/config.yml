@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: "敏感安全问题 / Sensitive security reports"
+    url: https://github.com/ycp424c/fable-mode-skill/blob/main/SECURITY.md
+    about: "先阅读反馈流程，不要公开漏洞细节或私人数据 / Read the reporting policy before sharing sensitive details"

@@ -49,6 +49,8 @@ npm pack --dry-run
 
 检查会确认完整的 skill、调用策略、许可证和两份 README 都进入包中，并拒绝额外文件。开发环境、研究与维护工具不随 npm 包发布。该检查也在 CI 和 `prepublishOnly` 中执行，无需先运行 `npm install`。
 
+首次发布前，按 [npm 的双重验证说明](https://docs.npmjs.com/configuring-two-factor-authentication/) 在账号设置中启用 2FA，再通过 `npm login --registry=https://registry.npmjs.org/` 登录。仅有普通登录不足以发布；发布命令提示验证时，在浏览器中完成验证。
+
 维护者发布时先更新实际版本和变更记录，完成上述检查及临时项目中的 `skills add` 安装验证，再执行 `npm publish --access public`。发布后回读 `npm view fable-mode-skill version dist-tags --json`，确认 registry 中的版本，再下载该版本验证安装。Git 标签应在发布成功后创建，避免把失败的发布标成已经可用。
 
 ## 行为改动如何验证

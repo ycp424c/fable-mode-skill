@@ -38,6 +38,19 @@ Windows 可使用 `python -m venv .venv`，并将后续的 `.venv/bin/python` �
 
 修改 `LICENSE` 时同步更新 `fable-mode/LICENSE`，保证只下载 skill 子目录的使用者也能收到完整声明。
 
+## npm 打包与发布
+
+仓库根目录的 `package.json` 描述 npm 分发包；`fable-mode/` 仍是唯一的 skill 源码。发布文件使用白名单，保持无运行依赖和自动安装脚本。修改打包配置时，用 Node.js 和 npm 执行：
+
+```sh
+npm run check:package
+npm pack --dry-run
+```
+
+检查会确认完整的 skill、调用策略、许可证和两份 README 都进入包中，并拒绝额外文件。开发环境、研究与维护工具不随 npm 包发布。该检查也在 CI 和 `prepublishOnly` 中执行，无需先运行 `npm install`。
+
+维护者发布时先更新实际版本和变更记录，完成上述检查及临时项目中的 `skills add` 安装验证，再执行 `npm publish --access public`。发布后回读 `npm view fable-mode-skill version dist-tags --json`，确认 registry 中的版本，再下载该版本验证安装。Git 标签应在发布成功后创建，避免把失败的发布标成已经可用。
+
 ## 行为改动如何验证
 
 修改协作取向或启用范围时，按 [evals/scenarios.md](evals/scenarios.md) 选择受影响的场景，并检查明确请求和显式调用范围是否退化。纯文档和许可证整理不需要重新运行模型试用。

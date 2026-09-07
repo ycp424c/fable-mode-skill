@@ -34,7 +34,30 @@ $fable-mode 今天不想再纠结了，按刚才聊的帮我挑一个吧。
 
 ## 安装
 
-需要支持本地 skills 和 `agents/openai.yaml` 调用策略的 Codex 环境。请在宿主中自行选择 GPT-6 Astra；本仓库不管理模型或账号权限。skill 本身只有 Markdown 和 YAML，无需安装 Python、Node.js 或额外 API key。
+需要支持本地 skills 和 `agents/openai.yaml` 调用策略的 Codex 环境。请在宿主中自行选择 GPT-6 Astra；本仓库不管理模型或账号权限。skill 本身只有 Markdown 和 YAML，没有运行依赖或额外 API key；下面的 npm / npx 安装方式需要 Node.js。
+
+### 通过 npx skills（推荐）
+
+在要使用 skill 的项目目录运行：
+
+```sh
+npx skills add ycp424c/fable-mode-skill --skill fable-mode --agent codex
+```
+
+默认安装到当前项目；加 `-g` 安装到个人目录，加 `-y` 跳过交互确认。安装前请检查同名 skill 的本地修改，安装器可能覆盖已有安装。
+
+此命令从 GitHub 获取源码，不需要先安装本项目的 npm 包。命令已按 [skills CLI](https://github.com/vercel-labs/skills#readme) `1.5.24` 核对，该版本要求 Node.js `>=22.20.0`。
+
+### 从 npm 安装固定版本
+
+[fable-mode-skill](https://www.npmjs.com/package/fable-mode-skill) 提供可固定版本的 skill 文件包。需要用项目依赖管理版本时运行：
+
+```sh
+npm install --save-dev --save-exact fable-mode-skill@0.1.0
+npx skills add ./node_modules/fable-mode-skill --skill fable-mode --agent codex
+```
+
+npm 安装只下载文件，第二条命令将 skill 安装到 Codex 的发现目录。包中附带完整的 `agents/openai.yaml` 与 MIT 许可证，没有自动安装脚本。当前 `skills` CLI 接受上述仓库或本地路径，不直接解析普通 npm 包名。
 
 ### 通过 skill-installer
 
@@ -81,6 +104,7 @@ $fable-mode 我还是更在意后面好不好维护，你按这个帮我选吧�
 
 ## 更新与卸载
 
+- **skills CLI 安装**：可用 `npx skills update fable-mode` 更新 GitHub 来源的安装，用 `npx skills remove fable-mode --agent codex` 移除；个人安装移除时加 `-g`。从 npm 固定版本安装时，先更新 npm 依赖版本，再重新执行本地路径的 `skills add` 命令。
 - **更新复制安装**：在源码仓库运行 `git pull --ff-only`，将原安装目录移到 skills 目录之外留作备份，再复制新的 `fable-mode` 子目录。保留你需要的本地修改，并检查调用策略仍为 `false`。
 - **使用软链接开发**：仓库中的修改会直接影响安装内容。移动仓库后需要重新指向正确路径。
 - **卸载**：移除已安装的 `fable-mode` 目录。如果使用软链接，只移除链接即可保留源码仓库。宿主仍显示旧条目时重启后检查。
@@ -101,7 +125,7 @@ $fable-mode 我还是更在意后面好不好维护，你按这个帮我选吧�
 
 欢迎通过 [Issues](https://github.com/ycp424c/fable-mode-skill/issues) 提交可复现的问题、失败场景和改进建议，中文或英文均可。贡献前请阅读 [贡献指南](CONTRIBUTING.md)和[行为准则](CODE_OF_CONDUCT.md)；敏感安全问题按[安全政策](SECURITY.md)反馈。
 
-本地校验方法见[贡献指南](CONTRIBUTING.md)。[GitHub Actions](.github/workflows/validate.yml) 使用同一脚本检查 skill 元数据、显式调用配置、许可证副本和 GitHub YAML；它不调用模型。项目变化记录在 [CHANGELOG.md](CHANGELOG.md)。
+本地校验方法见[贡献指南](CONTRIBUTING.md)。[GitHub Actions](.github/workflows/validate.yml) 检查 skill 元数据、显式调用配置、许可证副本、GitHub YAML 和 npm 发布文件清单；它不调用模型。项目变化记录在 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 许可证
 

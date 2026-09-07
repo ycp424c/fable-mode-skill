@@ -1,0 +1,39 @@
+{
+  "name": "fable-mode-skill",
+  "version": "0.1.0",
+  "description": "An explicit-only GPT-6 Astra skill for easier everyday collaboration, with less explaining and repeated clarification.",
+  "license": "MIT",
+  "author": "ycp424c",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ycp424c/fable-mode-skill.git"
+  },
+  "homepage": "https://github.com/ycp424c/fable-mode-skill#readme",
+  "bugs": {
+    "url": "https://github.com/ycp424c/fable-mode-skill/issues"
+  },
+  "keywords": [
+    "agent-skills",
+    "codex",
+    "astra",
+    "fable-mode",
+    "skills",
+    "prompt"
+  ],
+  "files": [
+    "fable-mode/SKILL.md",
+    "fable-mode/agents/openai.yaml",
+    "fable-mode/LICENSE",
+    "README.md",
+    "README.en.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "check:package": "node scripts/check-package.mjs",
+    "prepublishOnly": "npm run check:package"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

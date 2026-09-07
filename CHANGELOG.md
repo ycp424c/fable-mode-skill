@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## 0.1.0 - 2026-09-07
+
 ### Added
 
 - 面向 GPT-6 Astra 的 Fable Mode skill，包含语境理解、想法成形、目标保持和持续修正等协作取向。
@@ -11,6 +13,7 @@
 - 中英 README、安装与使用说明、贡献指南、行为准则、安全政策及 GitHub Issue / PR 模板。
 - MIT 许可证，并在可安装目录中保留完整副本。
 - 可在本地与 CI 中运行的静态校验脚本，以及维护依赖更新配置。
+- npm 包配置、发布内容检查，以及 `npx skills` 的 GitHub 与本地 npm 包安装说明。
 
 ### Changed
 

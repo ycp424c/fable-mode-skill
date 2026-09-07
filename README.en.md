@@ -34,7 +34,30 @@ Your requirements for the current task still take priority, including speed, len
 
 ## Installation
 
-Use a Codex environment that supports local skills and the invocation policy in `agents/openai.yaml`. Select GPT-6 Astra in your host yourself; this repository does not manage models or account access. The skill consists of Markdown and YAML and requires no Python, Node.js, or additional API key.
+Use a Codex environment that supports local skills and the invocation policy in `agents/openai.yaml`. Select GPT-6 Astra in your host yourself; this repository does not manage models or account access. The skill consists of Markdown and YAML, with no runtime dependencies or additional API key. The npm / npx installation methods below require Node.js.
+
+### With npx skills (recommended)
+
+Run this from the project where you want to use the skill:
+
+```sh
+npx skills add ycp424c/fable-mode-skill --skill fable-mode --agent codex
+```
+
+This installs into the current project. Add `-g` for a personal installation or `-y` to skip interactive confirmation. Check any local edits to an existing skill first, as the installer may overwrite it.
+
+This command fetches the GitHub source; installing this project's npm package first is unnecessary. The syntax was checked against [skills CLI](https://github.com/vercel-labs/skills#readme) `1.5.24`, which requires Node.js `>=22.20.0`.
+
+### Install a fixed version from npm
+
+[fable-mode-skill](https://www.npmjs.com/package/fable-mode-skill) distributes versioned skill files. To manage the version as a project dependency:
+
+```sh
+npm install --save-dev --save-exact fable-mode-skill@0.1.0
+npx skills add ./node_modules/fable-mode-skill --skill fable-mode --agent codex
+```
+
+The npm command downloads the files; the second command installs the skill into Codex's discovery directory. The package includes the complete `agents/openai.yaml` and MIT license, with no automatic installation scripts. The current skills CLI accepts the repository or local path above, rather than resolving a plain npm package name.
 
 ### With skill-installer
 
@@ -81,6 +104,7 @@ The [invocation configuration](fable-mode/agents/openai.yaml) sets `policy.allow
 
 ## Updating and uninstalling
 
+- **skills CLI installation**: update a GitHub installation with `npx skills update fable-mode`, or remove it with `npx skills remove fable-mode --agent codex`; add `-g` when removing a personal installation. For a fixed npm version, update the npm dependency and repeat `skills add` with the local path.
 - **Copied installation**: run `git pull --ff-only` in the source checkout, move the installed folder outside the skills directory as a backup, and copy the updated `fable-mode` folder. Preserve any local edits you need and check that the invocation policy remains `false`.
 - **Symlinked development installation**: checkout changes immediately affect the installed skill. Moving the checkout requires updating the link.
 - **Uninstalling**: remove the installed `fable-mode` folder. For a symlink, remove only the link to retain the checkout. Restart the host if an old entry remains visible.
@@ -103,7 +127,7 @@ Research and evaluation files stay in the repository and are not part of the ins
 
 Reproducible problems, failure cases, and proposals are welcome through [Issues](https://github.com/ycp424c/fable-mode-skill/issues), in Chinese or English. Read the [contribution guide](CONTRIBUTING.md) (Chinese, with an English quick check) and [code of conduct](CODE_OF_CONDUCT.md). Use the [security policy](SECURITY.md) for sensitive reports.
 
-Local validation instructions are in the contribution guide. [GitHub Actions](.github/workflows/validate.yml) runs the same script to check skill metadata, the invocation policy, license copies, and GitHub YAML, without calling a model. Changes are recorded in [CHANGELOG.md](CHANGELOG.md).
+Local validation instructions are in the contribution guide. [GitHub Actions](.github/workflows/validate.yml) checks skill metadata, the invocation policy, license copies, GitHub YAML, and the npm package file list, without calling a model. Changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
